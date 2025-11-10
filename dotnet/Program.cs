@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -10,7 +8,6 @@ app.MapGet("/{**ok}", async (HttpContext context) =>
 {
     var request = context.Request;
 
-    // Gather request details
     var ip = context.Connection.RemoteIpAddress?.ToString();
     var method = request.Method;
     var scheme = request.Scheme;
@@ -19,7 +16,6 @@ app.MapGet("/{**ok}", async (HttpContext context) =>
     var queryString = request.QueryString.Value;
     var headers = request.Headers;
 
-    // Build response
     var responseText = new System.Text.StringBuilder();
     responseText.AppendLine($"IP Address: {ip}");
     responseText.AppendLine($"Method: {method}");
