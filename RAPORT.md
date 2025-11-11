@@ -46,6 +46,35 @@ Docker compose jest narzędziem do definiowania i uruchamianiania wilokontenerow
 
 ### Dodanie kontera
 
+Utworzenie instancji dotnet przy użyciu dockera jest bardzo proste, wystarczy użyć poniższą komendę
+
+```sh
+docker run -v ./nginx/html:/usr/share/nginx/html:ro -p 80:80 nginx
+```
+
+Polecenie `docker run` uruchamia dany kontener, w tym przypadku `docker run nginx` uruchamia konter o nazwie nginx. Ponieważ na maszynie lokalnej nie ma kontenera o takiej nazwie, docker szuka tego kontenera w repozytorium hub.docker.com
+
+Jednak sam kontener z serwerem niewiele nam daje, potrzebujemy jeszcze powiedzieć mu co ma serwować, i gdzie ma to serwować. W tym celu potrzemujemy kolejne dwie opcje do komendy
+
+- `-v ./nginx/html:/usr/share/nginx/html:ro` tworzy link między lokalnym folderem, a folderem w kontenerze
+  - `-v` mówi dockerowi że chcemy zamontować jakiś folder/volume
+  - `./nginx/html` to lokalizacja na systemie hosta
+  - `/usr/share/nginx/html` to lokalizacja na systemie kontenera
+  - `ro` mówi dockerowi że folder jest w trybie tylko do odczytu
+- `-p 80:80` piekierowuje port z kontenera do hosta
+  - pierwsza wartość to numer portu hosta
+  - druga wartość to numer portu kontenera
+
+Podobnie wygląda konfiguracja kontenera w docker docker compsose
+
+- `image` to nazwa kontenera który chcemy uruchomić
+- `volumes` to odpowiednik `-v`
+- `ports` to odpowiednik `-p`
+
+#### dokumentacja kontenera
+
+- [[https://hub.docker.com/_/nginx]]
+
 ### Konfiguracja reverse proxy
 
 ---

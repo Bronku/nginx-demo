@@ -1,7 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+var port = Environment.GetEnvironmentVariable("PORT") ?? "80";
+var name = Environment.GetEnvironmentVariable("NAME") ?? "unnamed";
 var url = $"http://0.0.0.0:{port}";
 
 app.MapGet("/{**ok}", async (HttpContext context) =>
@@ -17,6 +18,7 @@ app.MapGet("/{**ok}", async (HttpContext context) =>
     var headers = request.Headers;
 
     var responseText = new System.Text.StringBuilder();
+    responseText.AppendLine($"Server Name: {name}");
     responseText.AppendLine($"IP Address: {ip}");
     responseText.AppendLine($"Method: {method}");
     responseText.AppendLine($"Scheme: {scheme}");
