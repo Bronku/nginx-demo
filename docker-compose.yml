@@ -7,6 +7,14 @@ services:
     build: ./dotnet
     environment:
       - NAME=Kili
+  java-1:
+    build: ./java
+    environment:
+      - NAME=FiliJava
+  java-2:
+    build: ./java
+    environment:
+      - NAME=KiliJava
   nginx:
     image: nginx
     volumes:
