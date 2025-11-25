@@ -10,6 +10,14 @@ Jako że nie jest to główna część projektu, a jedynie jego element to apli
 
 ### Java
 
+Aplikacja została zrealizowana u użyciem java 21, maven 4.0, Spring Boot 3.3.
+Składa się z następujących plików:
+  - pom.xml, główny plik konfiguracyjny maven  zawierający deklaracje wersji, ustawienia projektu, zależności oraz definicję pluginów.
+  - maven-wrapper.properties, określa wersję użwyanego maven wrappera oraz umożliwia uruchomienie projektu prostą komendą mvn, niezależnie od zainstalowanej w systemie wersji.
+  - application.yaml, plik konfiguracyjny spring boot, zawiera ustawienia aplikacji i serwera
+  - Application.java, klasa startowa uruchomiająca środowisko spring boot, prosty serwer HTTP, ładuje komponenty aplikacji oraz rozpoczyna nasłuchiwanie na porcie ustalonym w application.yaml
+  - MirrorController.java, ta klasa obsługuje dowolną ścieżkę/adres orza wyświetla opis otrzymanego żądania HTTP.
+
 ### .NET Core
 
 Do tej demonstracji została użyta wersja dotnet 8.0.
@@ -27,7 +35,7 @@ Obydwie aplikacje uruchomione są w dockerze, rozwiązanie to ma kilka zalet
 - ułatwia uruchomienie całego środowiska (całość można uruchomić jedną komendą)
 
 Każda aplikacja ma przygotowany plik `Dockerfile`, który jest wykorzystywany przez dockera do stworzenia kontera na podstawie kodu źródłowego.
-Na potrzeby projektu plik `Dockerfile` jest mocno uproszczony i w zasadzie tylko uruchamia polecenie `dotnet run` dla c#, oraz .... dla java.
+Na potrzeby projektu plik `Dockerfile` jest mocno uproszczony i w zasadzie tylko uruchamia polecenie `dotnet run` dla c#, oraz buduje aplikacje przy użyciu `mvn clean package` oraz uruchamia za pomocą polecenia `java -jar target/spring-boot-0.0.1-SNAPSHOT.jar` dla java.
 
 ---
 
@@ -37,7 +45,7 @@ Ponieważ do uruchomienia aplikacji używamy dockera, najprostszym sposobem na u
 
 Docker compose jest narzędziem do definiowania i uruchamianiania wilokontenerowej aplikacji w dockerze.
 
-- Normalnie w dockerze, uruchamia się kontener komendą `dotnet run`, ale gdy aplikacja potrzebuje kilku kontenerów (jak serwer, reverse proxy, ...) zarządzanie nimi staje się skomplikowane.
+- Normalnie w dockerze, uruchamia się kontener komendą `dotnet run` lub `java -jar target/spring-boot-0.0.1-SNAPSHOT.jar`, ale gdy aplikacja potrzebuje kilku kontenerów (jak serwer, reverse proxy, ...) zarządzanie nimi staje się skomplikowane.
 - Docker compose pozwala zdefiniować wszystkie kontenery i jak one oddziałają ze sobą w jednym pliku i uruchomienie wszystkiego jedną komendą
 
 ---
@@ -61,7 +69,7 @@ Jednak sam kontener z serwerem niewiele nam daje, potrzebujemy jeszcze powiedzie
   - `./nginx/html` to lokalizacja na systemie hosta
   - `/usr/share/nginx/html` to lokalizacja na systemie kontenera
   - `ro` mówi dockerowi że folder jest w trybie tylko do odczytu
-- `-p 80:80` piekierowuje port z kontenera do hosta
+- `-p 80:80` przekierowuje port z kontenera do hosta
   - pierwsza wartość to numer portu hosta
   - druga wartość to numer portu kontenera
 
