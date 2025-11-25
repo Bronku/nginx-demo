@@ -10,11 +10,11 @@ services:
   java-1:
     build: ./java
     environment:
-      - NAME=FiliJava
+      - NAME=Balin
   java-2:
     build: ./java
     environment:
-      - NAME=KiliJava
+      - NAME=Dwalin
   nginx:
     image: nginx
     volumes:
