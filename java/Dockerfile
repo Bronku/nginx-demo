@@ -5,4 +5,4 @@ COPY . .
 
 RUN mvn clean package -DskipTests
 
-ENTRYPOINT ["java","-Dserver.port=80", "-jar", "target/spring-boot-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "target/spring-boot-0.0.1-SNAPSHOT.jar"]
