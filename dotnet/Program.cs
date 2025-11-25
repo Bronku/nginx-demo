@@ -18,6 +18,7 @@ app.MapGet("/{**ok}", async (HttpContext context) =>
     var headers = request.Headers;
 
     var responseText = new System.Text.StringBuilder();
+    responseText.AppendLine("<pre>");
     responseText.AppendLine($"Server Name: {name}");
     responseText.AppendLine($"IP Address: {ip}");
     responseText.AppendLine($"Method: {method}");
@@ -30,6 +31,7 @@ app.MapGet("/{**ok}", async (HttpContext context) =>
     {
         responseText.AppendLine($"  {header.Key}: {header.Value}");
     }
+    responseText.AppendLine("</pre>");
 
     await context.Response.WriteAsync(responseText.ToString());
 });
