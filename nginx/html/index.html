@@ -1,1 +1,13 @@
 hello from nginx!
+
+<button onclick="goToApp('java')">Go to Java</button>
+<button onclick="goToApp('dotnet')">Go to .NET</button>
+<script>
+    function goToApp(appName) {
+        fetch("/", {
+            headers: { "X-App-Type": appName },
+        })
+            .then((r) => r.text())
+            .then((t) => (document.body.innerHTML = t));
+    }
+</script>
