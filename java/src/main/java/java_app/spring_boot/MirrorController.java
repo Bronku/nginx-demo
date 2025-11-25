@@ -46,6 +46,6 @@ public class MirrorController {
                     .append("\n");
             });
 
-        return "<pre>" + responseText.toString() + "</pre>\n";
+        return "<pre>\n" + responseText.toString() + "</pre>\n";
     }
 }
